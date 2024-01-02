@@ -1,0 +1,35 @@
+<section class="mypage-group d-none d-md-block">
+	<div class="mypage-group-inner">
+		<div class="mypage-user-profile">
+			<% if (image=='' ) { %>
+			<div
+				class="mypage-user-img"
+				style="
+					background-image: url('https://d1unjqcospf8gs.cloudfront.net/assets/users/default_profile_80-c649f052a34ebc4eee35048815d8e4f73061bf74552558bb70e07133f25524f9.png');
+				"></div>
+			<% } else { %>
+			<div class="mypage-user-img" style="background-image: url('<%= image %>')"></div>
+			<% } %>
+
+			<div class="mypage-user-id"><%= userid %></div>
+		</div>
+		<div class="mypage-history">
+			<div class="sub-title">내 거래 목록</div>
+			<ul class="mypage-history-ul">
+				<li class="mypage-history-li"><a href="/mypage">거래 내역</a></li>
+			</ul>
+		</div>
+		<div class="mypage-review-chat">
+			<div class="sub-title">채팅</div>
+			<ul class="mypage-review-chat-ul">
+				<!-- <li class="mypage-review-chat-li"><a href="/myboard">내가쓴글</a></li> -->
+				<li class="mypage-review-chat-li"><a href="javascript:void(0);" onclick="goChatrooms()">나의 채팅</a></li>
+			</ul>
+		</div>
+		<div class="mypage-my-profile">
+			<div class="sub-title">나의 계정</div>
+			<div><a href="/profile">내 정보 수정</a></div>
+			<!-- <div class="logout"><a href="/logout">로그아웃</a></div> -->
+		</div>
+	</div>
+</section>

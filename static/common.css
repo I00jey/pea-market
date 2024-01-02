@@ -1,0 +1,263 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+body {
+	line-height: 1.2;
+}
+ol,
+ul {
+	list-style: none;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+* {
+	box-sizing: border-box;
+	outline: none;
+}
+
+a {
+	color: #000;
+}
+a:link,
+a:visited {
+	text-decoration: none;
+}
+/* a:visited,
+a:active {
+  color: #83a793;
+} */
+
+/* 로그인, 회원가입 세로 높이 유지 */
+.main-user {
+	/* height: calc(100vh - 200px); */
+	position: relative;
+}
+
+.login-inner {
+	max-width: 1280px;
+	height: 100%;
+	margin: auto;
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+#loginForm {
+	/* position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); */
+}
+
+/* 버튼 */
+button {
+	border: 0;
+	outline: 0;
+	background-color: transparent;
+}
+
+/* 부트스트랩 버튼 색상 변경 */
+.btn-primary {
+	--bs-btn-bg: #008000;
+	--bs-btn-border-color: #627e6f;
+}
+
+.btn-primary:active,
+.btn-primary:hover {
+	--bs-btn-active-color: #fff;
+	--bs-btn-hover-color: #fff;
+	--bs-btn-active-bg: #008000c9;
+	--bs-btn-hover-bg: #008000c9;
+	--bs-btn-active-border-color: #008000c9;
+	--bs-btn-hover-border-color: #008000c9;
+}
+
+/*
+    --bs-btn-color: #fff;
+--bs-btn-bg: #0d6efd;
+--bs-btn-border-color: #0d6efd;
+--bs-btn-hover-color: #fff;
+--bs-btn-hover-bg: #0b5ed7;
+--bs-btn-hover-border-color: #0a58ca;
+--bs-btn-focus-shadow-rgb: 49,132,253;
+--bs-btn-active-color: #fff;
+--bs-btn-active-bg: #0a58ca;
+--bs-btn-active-border-color: #0a53be;
+--bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+--bs-btn-disabled-color: #fff;
+--bs-btn-disabled-bg: #0d6efd;
+--bs-btn-disabled-border-color: #0d6efd;
+*/
+
+/* 404 페이지 */
+.notfound {
+	position: relative;
+	max-width: 600px !important;
+	min-height: 600px;
+	margin: 5rem auto;
+	padding: 5rem 0 5rem 250px;
+	text-align: left;
+	font-family: 'Rubik Doodle Shadow';
+}
+.notfound:before {
+	content: '';
+	position: absolute;
+	top: 5rem;
+	bottom: 0;
+	left: 0;
+	width: 200px;
+	filter: grayscale(1);
+	background: url('/static/imgs/jumbbang.png') 0 0 no-repeat;
+	background-size: 200px;
+}
+.notfound h1 {
+	font-size: 5rem;
+}
+.notfound p.text1 {
+	font-size: 3rem;
+}
+.notfound p.text2 {
+	font-size: 1.2rem;
+}
+.notfound a:hover {
+	text-decoration: underline;
+}
+@media screen and (max-width: 575px) {
+	.notfound {
+		padding: 5rem 0;
+		text-align: center;
+	}
+	.notfound:before {
+		content: '';
+		position: static;
+		display: inline-block;
+		width: 200px;
+		height: 200px;
+		background-position: center 0;
+	}
+}
+
+/* sweetalert */
+.swal-button {
+	background-color: #008000;
+}
+.swal-button:not([disabled]):hover {
+	background-color: #008000c9;
+}
