@@ -8,7 +8,7 @@ const moment = require("moment");
 const cors = require("cors");
 const cron = require("node-cron");
 const app = express();
-const PORT = 80;
+const PORT = 8000;
 
 dotenv.config();
 
