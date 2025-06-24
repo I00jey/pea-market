@@ -58,7 +58,7 @@ const cardBox = document.getElementById("cards_wrap");
 btnSortBtns.forEach((elm, i) => {
     elm.addEventListener("click", function (e) {
         let val = e.target.value;
-        // console.log("val", val);
+        // //console.log("val", val);
         axios({
             method: "get",
             url: "/marketsort",
@@ -67,9 +67,9 @@ btnSortBtns.forEach((elm, i) => {
             },
         })
             .then((result) => {
-                // console.log(cardBox);
+                // //console.log(cardBox);
                 cardBox.innerHTML = "";
-                // console.log(result.data);
+                // //console.log(result.data);
                 const sortedArray = result.data.postData;
                 let html = "";
                 for (let i = 0; i < sortedArray.length; i++) {
@@ -105,11 +105,11 @@ btnSortBtns.forEach((elm, i) => {
                     </a>
                 </article>`;
                 }
-                // console.log("Generated HTML:", html);
+                // //console.log("Generated HTML:", html);
                 cardBox.innerHTML = html;
             })
             .catch((error) => {
-                console.log("sort error", error);
+                //console.log("sort error", error);
             });
     });
 });
@@ -117,7 +117,7 @@ const priceSortInput = document.querySelectorAll("[name=filterPrice]");
 priceSortInput.forEach((elm, i) => {
     elm.addEventListener("click", function (e) {
         let val = e.target.value;
-        // console.log("val", val);
+        // //console.log("val", val);
         axios({
             method: "get",
             url: "/marketsort",
@@ -126,9 +126,9 @@ priceSortInput.forEach((elm, i) => {
             },
         })
             .then((result) => {
-                // console.log(cardBox);
+                // //console.log(cardBox);
                 cardBox.innerHTML = "";
-                // console.log(result.data);
+                // //console.log(result.data);
                 const sortedArray = result.data.postData;
                 let html = "";
                 for (let i = 0; i < sortedArray.length; i++) {
@@ -164,11 +164,11 @@ priceSortInput.forEach((elm, i) => {
                     </a>
                 </article>`;
                 }
-                // console.log("Generated HTML:", html);
+                // //console.log("Generated HTML:", html);
                 cardBox.innerHTML = html;
             })
             .catch((error) => {
-                console.log("sort error", error);
+                //console.log("sort error", error);
             });
     });
 });
@@ -193,7 +193,7 @@ async function addpost() {
         form.priceDirect.value == "" ||
         form.dateLimit.value == ""
     ) {
-        await swal('게시물 작성 실패', "정보를 모두 입력해주세요", 'error')
+        await swal("게시물 작성 실패", "정보를 모두 입력해주세요", "error");
         return;
     }
 
@@ -220,9 +220,13 @@ async function addpost() {
             "Content-Type": "multipart/form-data",
         },
     }).then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res) {
-            swal('게시물 작성 완료', "게시물 작성이 완료 되었습니다.", 'success');
+            swal(
+                "게시물 작성 완료",
+                "게시물 작성이 완료 되었습니다.",
+                "success"
+            );
             document.location.href = "/market";
         }
     });
@@ -230,12 +234,12 @@ async function addpost() {
 
 async function enterbid() {
     const currentURL = window.location.href;
-    console.log(currentURL);
+    //console.log(currentURL);
 
     // URL에서 마지막 부분 추출
     const urlWithoutQuery = currentURL.split("?")[0];
     const lastSegment = urlWithoutQuery.split("/").pop();
-    console.log(lastSegment);
+    //console.log(lastSegment);
 
     const form = document.forms["formBid"];
 
@@ -249,7 +253,11 @@ async function enterbid() {
             },
         });
 
-        await swal('경매 참여 완료', form.price.value + "원에 입찰하셨습니다.", 'success');
+        await swal(
+            "경매 참여 완료",
+            form.price.value + "원에 입찰하셨습니다.",
+            "success"
+        );
         location.reload();
     } catch (error) {
         console.error("에러 발생:", error);
@@ -257,15 +265,14 @@ async function enterbid() {
     }
 }
 
-
 async function buyDirect() {
     const currentURL = window.location.href;
-    console.log(currentURL);
+    //console.log(currentURL);
 
     // URL에서 마지막 부분 추출
     const urlWithoutQuery = currentURL.split("?")[0];
     const lastSegment = urlWithoutQuery.split("/").pop();
-    console.log(lastSegment);
+    //console.log(lastSegment);
 
     const form = document.forms["formBid"];
 
@@ -278,7 +285,11 @@ async function buyDirect() {
             },
         });
 
-        await swal('물품 구매 완료', bidprice + "원에 즉시 구매 하셨습니다.", 'success');
+        await swal(
+            "물품 구매 완료",
+            bidprice + "원에 즉시 구매 하셨습니다.",
+            "success"
+        );
         location.reload();
     } catch (error) {
         console.error("에러 발생:", error);
@@ -286,12 +297,11 @@ async function buyDirect() {
     }
 }
 
-
 async function usercheck() {
     const currentURL = window.location.href;
     const urlWithoutQuery = currentURL.split("?")[0];
     const lastSegment = urlWithoutQuery.split("/").pop();
-    console.log(lastSegment);
+    //console.log(lastSegment);
 
     try {
         const response = await axios({
@@ -302,15 +312,19 @@ async function usercheck() {
             },
         });
 
-        console.log(response.data.islogin);
+        //console.log(response.data.islogin);
 
         if (response.data.islogin == true) {
             if (response.data.result == false) {
-                await swal('수정 실패', "본인이 작성한 게시물이 아닙니다", 'error');
+                await swal(
+                    "수정 실패",
+                    "본인이 작성한 게시물이 아닙니다",
+                    "error"
+                );
                 location.reload();
             }
         } else {
-            await swal('로그인 인증 실패', "로그인 상태가 아닙니다.", 'error');
+            await swal("로그인 인증 실패", "로그인 상태가 아닙니다.", "error");
             document.location.href = "/login";
         }
     } catch (error) {
@@ -319,9 +333,8 @@ async function usercheck() {
     }
 }
 
-
 async function editarticle() {
-    console.log('게시물 수정 try')
+    //console.log('게시물 수정 try')
     const currentURL = window.location.href;
 
     const urlWithoutQuery = currentURL.split("?")[0];
@@ -340,10 +353,9 @@ async function editarticle() {
                 content: content.value,
             },
         });
-        await swal('게시물 수정 완료', response.data.msg, 'success');
+        await swal("게시물 수정 완료", response.data.msg, "success");
     } catch (error) {
         console.error("에러 발생:", error);
         // 에러 처리 로직 추가
     }
 }
-

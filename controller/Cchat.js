@@ -28,8 +28,8 @@ exports.getChats = async (req, res) => {
                 } else {
                     yourinfo = await user.findOne({ userid: userid });
                 }
-                console.log("chatrooms check", postid, userid, productid);
-                // console.log("sendid check", userid, myid);
+                // //console.log("chatrooms check", postid, userid, productid);
+                // //console.log("sendid check", userid, myid);
 
                 // market모델에서 게시물 제목 데이터 가져오기
                 let roominfo = await market.findOne({
@@ -58,7 +58,7 @@ exports.getChats = async (req, res) => {
                         takeId: postid,
                         productId: productid,
                     });
-                    console.log("newChatRoom", newChatRoom);
+                    // //console.log("newChatRoom", newChatRoom);
                     savedChats = [];
                     // 저장된 채팅 데이터
                     res.render("chats", {
@@ -71,7 +71,7 @@ exports.getChats = async (req, res) => {
                         hasYourInfo,
                     });
                 } else {
-                    console.log("savedChatRooms", savedChatRooms);
+                    //console.log("savedChatRooms", savedChatRooms);
                     savedChats = await chats.find({
                         roomId: savedChatRooms._id,
                     });
@@ -87,7 +87,7 @@ exports.getChats = async (req, res) => {
                                 .format("a hh:mm"),
                         };
                     });
-                    console.log("savedChats", savedChats);
+                    //console.log("savedChats", savedChats);
                     res.render("chats", {
                         nowRoomId: savedChatRooms._id,
                         savedChats,
@@ -120,19 +120,19 @@ exports.getChatrooms = async (req, res) => {
                 let mychatrooms;
                 const userid = decodedjwt.userid;
                 const myinfo = await user.findOne({ userid: userid });
-                console.log("userid", userid);
+                //console.log("userid", userid);
                 try {
                     const fromMe = await chatrooms.find({
                         sendId: userid,
                     });
-                    console.log("내가 보낸 채팅방", fromMe);
+                    //console.log("내가 보낸 채팅방", fromMe);
                     const toMe = await chatrooms.find({
                         takeId: userid,
                     });
-                    console.log("내가 받은 채팅방", toMe);
+                    //console.log("내가 받은 채팅방", toMe);
                     mychatrooms = [...fromMe, ...toMe];
                 } catch (error) {
-                    console.log("find getChatrooms 오류 >", error);
+                    //console.log("find getChatrooms 오류 >", error);
                 }
                 if (mychatrooms.length > 0) {
                     // 내림차순 정렬
@@ -149,13 +149,13 @@ exports.getChatrooms = async (req, res) => {
                         };
                     });
                 }
-                console.log("mychatrooms", mychatrooms);
+                //console.log("mychatrooms", mychatrooms);
                 let productNames = [];
                 let yourNames = [];
                 let yourProfileImgs = [];
                 let yourNickNames = [];
                 for (let i = 0; i < mychatrooms.length; i++) {
-                    // console.log(mychatrooms[i].productId);
+                    // //console.log(mychatrooms[i].productId);
                     try {
                         if (mychatrooms[i].sendId != userid) {
                             yourNames.push(mychatrooms[i].sendId);
@@ -187,15 +187,15 @@ exports.getChatrooms = async (req, res) => {
                             );
                         }
                     } catch (error) {
-                        console.log("상품 조회 오류 >", error);
+                        //console.log("상품 조회 오류 >", error);
                     }
                 }
-                console.log("mychatrooms length", mychatrooms.length);
-                console.log("productNames length", productNames.length);
-                console.log("productNames", productNames);
-                console.log("yourNames", yourNames);
-                console.log("myinfo.image", myinfo.image);
-                console.log("yourProfileImgs", yourProfileImgs);
+                //console.log("mychatrooms length", mychatrooms.length);
+                //console.log("productNames length", productNames.length);
+                //console.log("productNames", productNames);
+                //console.log("yourNames", yourNames);
+                //console.log("myinfo.image", myinfo.image);
+                //console.log("yourProfileImgs", yourProfileImgs);
                 res.render("chatrooms", {
                     mychatrooms,
                     productNames,
@@ -216,13 +216,13 @@ exports.getChatrooms = async (req, res) => {
 
 exports.postChat = async (req, res) => {
     const { roomid, sendid, sendmsg } = req.body;
-    console.log(roomid);
+    //console.log(roomid);
     const newMsg = await chats.create({
         roomId: roomid,
         sendId: sendid,
         msg: sendmsg,
     });
-    console.log("newMsg", newMsg);
+    //console.log("newMsg", newMsg);
     res.send({ newMsg });
 };
 
@@ -230,7 +230,7 @@ exports.chatExit = async (req, res) => {
     const { roomid } = req.body;
     const result = await chatrooms.findOneAndDelete({ _id: roomid });
     const resultchat = await chats.deleteMany({ roomId: roomid });
-    console.log("chatExit result", result, resultchat);
+    //console.log("chatExit result", result, resultchat);
     res.send({ result });
 };
 
@@ -245,7 +245,7 @@ exports.getCurrentUserId = async (req, res) => {
         const username = await getUsernameByUserid(decodedjwt.userid);
         const userid = decodedjwt.userid;
         if (decodedjwt.token != undefined) {
-            console.log(userid, username);
+            //console.log(userid, username);
             res.send({
                 userid: userid,
                 username: username,
@@ -259,7 +259,7 @@ exports.getCurrentUserId = async (req, res) => {
 const getUsernameByUserid = async function (userid) {
     const userRecord = await user.findOne({ userid: userid });
     if (userRecord) {
-        console.log("사용자 닉네임", userRecord.nick);
+        //console.log("사용자 닉네임", userRecord.nick);
         return userRecord.nick;
     }
     console.error("존재하지 않는 아이디입니다.");
@@ -267,22 +267,22 @@ const getUsernameByUserid = async function (userid) {
 
 exports.socketConnection = (socket, io) => {
     // socket 연결
-    console.log("Socket connection status:", socket.connected);
+    //console.log("Socket connection status:", socket.connected);
 
-    console.log("socket 연결 > ", socket.id);
+    //console.log("socket 연결 > ", socket.id);
     socket.on("joinRoom", ({ userid, room }) => {
         let roomUsers = getRoomUsers(room);
-        console.log("현재 room 인원", roomUsers);
+        //console.log("현재 room 인원", roomUsers);
         if (roomUsers.length >= 2) {
             socket.emit("roomFull");
             socket.disconnect();
-            console.log("Socket connection status:", socket.connected);
+            //console.log("Socket connection status:", socket.connected);
             return;
         }
         const user = userJoin(socket.id, userid, room);
         socket.join(user.room);
         roomUsers = getRoomUsers(user.room);
-        console.log("join후 room 인원", roomUsers);
+        //console.log("join후 room 인원", roomUsers);
 
         io.to(user.room).emit("roomUsers");
     });
@@ -298,7 +298,7 @@ exports.socketConnection = (socket, io) => {
     socket.on("disconnect", () => {
         const user = userLeave(socket.id);
         if (user) {
-            console.log("삭제할 userid >", user.userid);
+            //console.log("삭제할 userid >", user.userid);
         }
     });
 };

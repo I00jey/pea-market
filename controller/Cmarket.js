@@ -8,22 +8,38 @@ const { verifyToken } = require("../utils/token");
 exports.market = async (req, res) => {
     const categoryCode = req.query.category;
 
-    console.log(typeof(categoryCode));
+    //console.log(typeof(categoryCode));
 
-    if(categoryCode == undefined){
-        marketModel.find().populate("userid").sort({ createdAt: -1 }).exec()
+    if (categoryCode == undefined) {
+        marketModel
+            .find()
+            .populate("userid")
+            .sort({ createdAt: -1 })
+            .exec()
             .then((result) => {
                 res.header("Access-Control-Allow-Origin", "*");
-                res.render("market", { postData: result, categoryCode:  req.query.category});
-            }).catch((error) => {
+                res.render("market", {
+                    postData: result,
+                    categoryCode: req.query.category,
+                });
+            })
+            .catch((error) => {
                 console.error("Error finding data:", error);
             });
-    } else{
-        marketModel.find({category: categoryCode}).populate("userid").sort({ createdAt: -1 }).exec()
+    } else {
+        marketModel
+            .find({ category: categoryCode })
+            .populate("userid")
+            .sort({ createdAt: -1 })
+            .exec()
             .then((result) => {
                 res.header("Access-Control-Allow-Origin", "*");
-                res.render("market", { postData: result, categoryCode:  req.query.category});
-            }).catch((error) => {
+                res.render("market", {
+                    postData: result,
+                    categoryCode: req.query.category,
+                });
+            })
+            .catch((error) => {
                 console.error("Error finding data:", error);
             });
     }
@@ -31,7 +47,7 @@ exports.market = async (req, res) => {
 
 exports.marketsort = async (req, res) => {
     const sortnumber = req.query.selectedSort;
-    console.log("sortnumber", sortnumber);
+    //console.log("sortnumber", sortnumber);
     let result;
     if (!sortnumber || sortnumber === "1") {
         result = await marketModel
@@ -103,14 +119,14 @@ exports.getView = async (req, res) => {
             .exec();
 
         // 결과를 처리하는 로직
-        console.log(result);
+        //console.log(result);
         const productData = await marketModel
             .find()
             .populate("userid")
             .sort({ hit: -1 })
             .exec();
 
-        // console.log(productData);
+        // //console.log(productData);
         res.header("Access-Control-Allow-Origin", "*");
         res.render("marketView", { postdata: result, productData });
     } catch (err) {
@@ -147,8 +163,8 @@ exports.addPost = async (req, res) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
-        console.log(req.files.length);
-        console.log(req.body);
+        //console.log(req.files.length);
+        //console.log(req.body);
 
         let images = [];
 
@@ -156,7 +172,7 @@ exports.addPost = async (req, res) => {
             images.push(req.files[i].location);
         }
 
-        console.log(images);
+        //console.log(images);
 
         const {
             subject,
@@ -168,20 +184,20 @@ exports.addPost = async (req, res) => {
             dateLimit,
         } = req.body;
 
-        console.log(
-            "글 작성 정보",
-            subject,
-            comment,
-            state,
-            priceFirst,
-            priceDirect,
-            dateLimit
-        );
+        // console.log(
+        //     "글 작성 정보",
+        //     subject,
+        //     comment,
+        //     state,
+        //     priceFirst,
+        //     priceDirect,
+        //     dateLimit
+        // );
 
         const token = req.cookies.accessToken;
-        console.log("글 작성 시 토큰", token);
+        //console.log("글 작성 시 토큰", token);
         const decodedjwt = jwt.verify(token, process.env.JWT_ACCESS_KEY);
-        console.log("유저 정보", decodedjwt.userId);
+        //console.log("유저 정보", decodedjwt.userId);
         const userId = decodedjwt.userId;
 
         const user_info = await userModel.findOne({ userid: userId });
@@ -202,15 +218,15 @@ exports.addPost = async (req, res) => {
                 images: images,
             })
             .then((res) => {
-                console.log(userId, "이미지 등록 결과", res);
+                //console.log(userId, "이미지 등록 결과", res);
             });
         return res.status(200).json({ message: "Upload successful" });
     });
 };
 
 exports.enterbid = async (req, res) => {
-    console.log("경매 시도");
-    console.log(req.body);
+    //console.log("경매 시도");
+    //console.log(req.body);
     const { bidprice, productId } = req.body;
     const token = req.cookies.accessToken;
     const refreshToken = req.cookies.refreshToken;
@@ -220,10 +236,10 @@ exports.enterbid = async (req, res) => {
     } else {
         try {
             const decodedjwt = await verifyToken(token, refreshToken);
-            console.log("토큰 유효 검사 결과", decodedjwt);
+            //console.log("토큰 유효 검사 결과", decodedjwt);
 
             if (decodedjwt.token != undefined) {
-                console.log("DB 결과 업데이트 시도");
+                //console.log("DB 결과 업데이트 시도");
                 const result = await marketModel.updateOne(
                     { _id: productId },
                     {
@@ -235,7 +251,7 @@ exports.enterbid = async (req, res) => {
                     { upsert: true }
                 );
 
-                console.log("데이터 업데이트 실행 결과", result);
+                //console.log("데이터 업데이트 실행 결과", result);
                 res.send({ msg: "입찰 성공" });
             } else {
                 res.render("login");
@@ -257,20 +273,20 @@ exports.usercheck = async (req, res) => {
         res.send({ islogin: false, result: false });
     } else {
         try {
-            console.log("게시물 정보 가져 오기 try");
+            //console.log("게시물 정보 가져 오기 try");
             const decodedjwt = await verifyToken(token, refreshToken);
 
             if (decodedjwt.token != undefined) {
-                console.log("DB 결과 업데이트 시도");
+                //console.log("DB 결과 업데이트 시도");
                 const result = await marketModel
                     .findOne({ _id: productId })
                     .populate("userid")
                     .exec();
 
-                console.log(
-                    "유저 비교 결과",
-                    result.userid.userid == decodedjwt.userid
-                );
+                // console.log(
+                //     "유저 비교 결과",
+                //     result.userid.userid == decodedjwt.userid
+                // );
                 if (result.userid.userid == decodedjwt.userid) {
                     res.send({ islogin: true, result: true });
                 } else {
@@ -294,7 +310,7 @@ exports.editArticle = async (req, res) => {
             { _id: articleid },
             { $set: { subject: subject, content: content, state: state } }
         );
-        console.log("변경 결과", result);
+        //console.log("변경 결과", result);
         res.send({ msg: "게시글 정보 변경 완료 되었습니다." });
     } catch (err) {
         console.error("게시물 정보 업데이트 중 에러", err);
@@ -312,10 +328,10 @@ exports.directBuy = async (req, res) => {
     } else {
         try {
             const decodedjwt = await verifyToken(token, refreshToken);
-            console.log("토큰 유효 검사 결과", decodedjwt);
+            //console.log("토큰 유효 검사 결과", decodedjwt);
 
             if (decodedjwt.token != undefined) {
-                console.log("DB 결과 업데이트 시도");
+                //console.log("DB 결과 업데이트 시도");
                 const result = await marketModel.updateOne(
                     { _id: productId },
                     {

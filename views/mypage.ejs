@@ -1,145 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<%- include('./component/head', { title: '마이페이지 - 완두점빵' }) %>
-	</head>
 
-	<body>
-		<%- include('./component/header') %>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<%- include('./component/head', { title: '마이페이지 - 완두점빵' }) %>
+</head>
+
+<body>
+	<%- include('./component/header') %>
 		<main id="mypage">
 			<div class="mypage-inner container">
 				<div class="mypage-profile-list">
 					<%- include('./component/mypageMenu') %>
-					<!-- 내역 탭 -->
-					<!-- 구매 내역에는 받은후기 추가 -->
-					<section class="mypage-record">
-						<div class="mypage-record-inner">
-							<h2 class="mypage-record-title fw-bold" id="sale-list-tab">판매내역</h2>
-							<!-- 탭 버튼 -->
-							<div class="mypage-tab-sale">
-								<ul class="mypage-tab-menu">
-									<li><a href="#sale-tab1" class="active">판매중</a></li>
-									<li><a href="#sale-tab2">판매 완료</a></li>
-									<li><a href="#sale-tab3">구매 완료</a></li>
-								</ul>
-								<div class="mypage-tab-content">
-									<div id="sale-tab1" class="active">
-										<ul class="mypage-tab-ul">
-											<% for(let i=0; i < sellobj.length; i++) { %>
-											<li class="mypage-tab-li">
-												<a class="mypage-tab-product" href="/articles/<%= sellobj[i]._id %>">
-													<div class="mypage-sale-img">
-														<img src="<%= sellobj[i].images[0] %>" alt="이미지 없음" />
-													</div>
-													<div>
-														<div class="record-product-title mt-2"><%= sellobj[i].subject %></div>
-														<div class="content mb-2"><%= sellobj[i].content %></div>
-														<div class="record-product-price">
-															<span class="tag">판매중</span>
-														</div>
-														<div class="date">
-															<% const createdAt=new Date(sellobj[i].createdAt); %> <% const
-															formattedCreatedAt=createdAt.getFullYear() + '-' + (createdAt.getMonth() +
-															1).toString().padStart(2, '0' ) + '-' + createdAt.getDate().toString().padStart(2, '0' );
-															%> <%= formattedCreatedAt %>
-														</div>
-													</div>
-												</a>
-											</li>
-											<% } %>
-										</ul>
-									</div>
-									<div id="sale-tab2">
-										<ul class="mypage-tab-ul">
-											<% for(let i=0; i < sellobj1.length; i++) { %>
-											<li class="mypage-tab-li">
-												<a class="mypage-tab-product" href="/articles/<%= sellobj1[i]._id %>">
-													<div class="mypage-sale-img">
-														<img src="<%= sellobj1[i].images[0] %>" alt="이미지 없음" />
-													</div>
-													<div>
-														<div class="date">
-															<% const createdAt=new Date(sellobj1[i].createdAt); %> <% const
-															formattedCreatedAt=createdAt.getFullYear() + '-' + (createdAt.getMonth() +
-															1).toString().padStart(2, '0' ) + '-' + createdAt.getDate().toString().padStart(2, '0' );
-															%> <%= formattedCreatedAt %>
-														</div>
-														<div class="record-product-title"><%= sellobj1[i].subject %></div>
-														<div class="record-product-price">
-															<span class="tag">판매완료</span>
-														</div>
-														<div class="date">
-															<span class="content"><%= sellobj1[i].content %></span>
-														</div>
-													</div>
-												</a>
-											</li>
-											<% } %>
-										</ul>
-									</div>
-									<div id="sale-tab3">
-										<ul class="mypage-tab-ul">
-											<% for(let i=0; i < buyobj.length; i++) { %>
-											<li class="mypage-tab-li">
-												<a class="mypage-tab-product" href="/articles/<%= buyobj[i]._id %>">
-													<div class="mypage-sale-img">
-														<img src="<%= buyobj[i].images[0] %>" alt="" />
-													</div>
-													<div>
-														<div class="date">
-															<% const createdAt=new Date(buyobj[i].createdAt); %> <% const
-															formattedCreatedAt=createdAt.getFullYear() + '-' + (createdAt.getMonth() +
-															1).toString().padStart(2, '0' ) + '-' + createdAt.getDate().toString().padStart(2, '0' );
-															%> <%= formattedCreatedAt %>
-														</div>
-														<div class="record-product-title"><%= buyobj[i].subject %></div>
-														<div class="record-product-price">
-															<span class="tag">구매완료</span>
-														</div>
-														<div class="date">
-															<span class="content"><%= buyobj[i].content %></span>
-														</div>
-													</div>
-												</a>
-											</li>
-											<% } %>
-										</ul>
+						<!-- 내역 탭 -->
+						<!-- 구매 내역에는 받은후기 추가 -->
+						<section class="mypage-record">
+							<div class="mypage-record-inner">
+								<h2 class="mypage-record-title fw-bold" id="sale-list-tab">판매내역</h2>
+								<!-- 탭 버튼 -->
+								<div class="mypage-tab-sale">
+									<ul class="mypage-tab-menu">
+										<li><a href="#sale-tab1" class="active">판매중</a></li>
+										<li><a href="#sale-tab2">판매 완료</a></li>
+										<li><a href="#sale-tab3">구매 완료</a></li>
+									</ul>
+									<div class="mypage-tab-content">
+										<div id="sale-tab1" class="active">
+											<ul class="mypage-tab-ul">
+												<% for(let i=0; i < sellobj.length; i++) { %>
+													<li class="mypage-tab-li">
+														<a class="mypage-tab-product"
+															href="/articles/<%= sellobj[i]._id %>">
+															<div class="mypage-sale-img">
+																<img src="<%= sellobj[i].images[0] %>" alt="이미지 없음" />
+															</div>
+															<div>
+																<div class="record-product-title mt-2">
+																	<%= sellobj[i].subject %>
+																</div>
+																<div class="content mb-2">
+																	<%= sellobj[i].content %>
+																</div>
+																<div class="record-product-price">
+																	<span class="tag">판매중</span>
+																</div>
+																<div class="date">
+																	<% const createdAt=new Date(sellobj[i].createdAt);
+																		%>
+																		<% const
+																			formattedCreatedAt=createdAt.getFullYear()
+																			+ '-' + (createdAt.getMonth() +
+																			1).toString().padStart(2, '0' ) + '-' +
+																			createdAt.getDate().toString().padStart(2, '0'
+																			); %>
+																			<%= formattedCreatedAt %>
+																</div>
+															</div>
+														</a>
+													</li>
+													<% } %>
+											</ul>
+										</div>
+										<div id="sale-tab2">
+											<ul class="mypage-tab-ul">
+												<% for(let i=0; i < sellobj1.length; i++) { %>
+													<li class="mypage-tab-li">
+														<a class="mypage-tab-product"
+															href="/articles/<%= sellobj1[i]._id %>">
+															<div class="mypage-sale-img">
+																<img src="<%= sellobj1[i].images[0] %>" alt="이미지 없음" />
+															</div>
+															<div>
+																<div class="date">
+																	<% const createdAt=new Date(sellobj1[i].createdAt);
+																		%>
+																		<% const
+																			formattedCreatedAt=createdAt.getFullYear()
+																			+ '-' + (createdAt.getMonth() +
+																			1).toString().padStart(2, '0' ) + '-' +
+																			createdAt.getDate().toString().padStart(2, '0'
+																			); %>
+																			<%= formattedCreatedAt %>
+																</div>
+																<div class="record-product-title">
+																	<%= sellobj1[i].subject %>
+																</div>
+																<div class="record-product-price">
+																	<span class="tag">판매완료</span>
+																</div>
+																<div class="date">
+																	<span class="content">
+																		<%= sellobj1[i].content %>
+																	</span>
+																</div>
+															</div>
+														</a>
+													</li>
+													<% } %>
+											</ul>
+										</div>
+										<div id="sale-tab3">
+											<ul class="mypage-tab-ul">
+												<% for(let i=0; i < buyobj.length; i++) { %>
+													<li class="mypage-tab-li">
+														<a class="mypage-tab-product"
+															href="/articles/<%= buyobj[i]._id %>">
+															<div class="mypage-sale-img">
+																<img src="<%= buyobj[i].images[0] %>" alt="" />
+															</div>
+															<div>
+																<div class="date">
+																	<% const createdAt=new Date(buyobj[i].createdAt); %>
+																		<% const
+																			formattedCreatedAt=createdAt.getFullYear()
+																			+ '-' + (createdAt.getMonth() +
+																			1).toString().padStart(2, '0' ) + '-' +
+																			createdAt.getDate().toString().padStart(2, '0'
+																			); %>
+																			<%= formattedCreatedAt %>
+																</div>
+																<div class="record-product-title">
+																	<%= buyobj[i].subject %>
+																</div>
+																<div class="record-product-price">
+																	<span class="tag">구매완료</span>
+																</div>
+																<div class="date">
+																	<span class="content">
+																		<%= buyobj[i].content %>
+																	</span>
+																</div>
+															</div>
+														</a>
+													</li>
+													<% } %>
+											</ul>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</section>
+						</section>
 				</div>
 			</div>
 		</main>
 		<%- include('./component/footer') %>
 
-		<!-- 탭 -->
-		<script>
-			const targetLink = document.querySelectorAll('.mypage-tab-menu a');
-			const tabContent = document.querySelectorAll('.mypage-tab-content > div ');
-			console.log(tabContent);
-			for (let i = 0; i < targetLink.length; i++) {
-				targetLink[i].addEventListener('click', function (e) {
-					e.preventDefault();
-					const orgTarget = e.target.getAttribute('href');
+			<!-- 탭 -->
+			<script>
+				const targetLink = document.querySelectorAll('.mypage-tab-menu a');
+				const tabContent = document.querySelectorAll('.mypage-tab-content > div ');
+				//console.log(tabContent);
+				for (let i = 0; i < targetLink.length; i++) {
+					targetLink[i].addEventListener('click', function (e) {
+						e.preventDefault();
+						const orgTarget = e.target.getAttribute('href');
 
-					const tabTarget = orgTarget.replace('#', '');
+						const tabTarget = orgTarget.replace('#', '');
 
-					for (let j = 0; j < tabContent.length; j++) {
-						tabContent[j].style.display = 'none';
-					}
-					document.getElementById(tabTarget).style.display = 'block';
+						for (let j = 0; j < tabContent.length; j++) {
+							tabContent[j].style.display = 'none';
+						}
+						document.getElementById(tabTarget).style.display = 'block';
 
-					for (let k = 0; k < targetLink.length; k++) {
-						targetLink[k].classList.remove('active');
-						e.target.classList.add('active');
-					}
-				});
-			}
-			document.getElementById('sale-tab1').style.display = 'block';
-		</script>
-	</body>
+						for (let k = 0; k < targetLink.length; k++) {
+							targetLink[k].classList.remove('active');
+							e.target.classList.add('active');
+						}
+					});
+				}
+				document.getElementById('sale-tab1').style.display = 'block';
+			</script>
+</body>
+
 </html>

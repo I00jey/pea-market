@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 // 1. 비밀번호 해싱 함수
 function hashPW(password) {
@@ -7,11 +7,10 @@ function hashPW(password) {
 }
 
 // 2. 원본 비밀번호와 해시된 비밀번호가 일치하는지 확인하는 함수(같은지, 다른지만 알려줌)
-function comparePW(password, hashedPW){
-    console.log(hashedPW);
-    return bcrypt.compareSync(password, hashedPW)
+function comparePW(password, hashedPW) {
+    //console.log(hashedPW);
+    return bcrypt.compareSync(password, hashedPW);
 }
-
 
 module.exports = {
     hashPW,

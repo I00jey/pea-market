@@ -3,14 +3,14 @@ const { userid } = Qs.parse(location.search, {
 });
 
 function exit(nowroomid) {
-    console.log("채팅방 나가기");
+    //console.log("채팅방 나가기");
     axios({
         method: "delete",
         url: "/chatroom",
         data: { roomid: nowroomid },
     })
         .then(() => {
-            console.log("채팅방 나가기 성공");
+            //console.log("채팅방 나가기 성공");
             window.location.href = `/getchatrooms?userid=${userid}`;
         })
         .catch((error) => {
